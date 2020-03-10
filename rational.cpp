@@ -14,10 +14,15 @@ int Rational::gcd(int n, int d) { // gcd
   return gcd(d, n % d);
 }
 
-int Rational::reduce() { // reduce
+void Rational::reduce() { // reduce
   int d = gcd(num, den);
-  num /= d;
-  den /= d;
+  if (den < 0) { // if denominator is negative
+    num = -num / d; // set numerator to be negative
+    den = -den / d; // set denominator to be positive (3/-6 -> -1/2)
+  } else {
+    num /= d;
+    den /= d;
+  }
 }
 
 Rational::Rational() { num = 0; den = 1; } // constructor

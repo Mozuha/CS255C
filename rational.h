@@ -15,7 +15,7 @@ class Rational {
   private:
       int num, den; // numerator, denominator
       int gcd(int, int);  // gcd
-      int reduce(); // reduce the ratio to the simplest value (2/4 -> 1/2)
+      void reduce(); // reduce the ratio to the simplest value (2/4 -> 1/2)
 
   public:
       Rational(); // constructor
