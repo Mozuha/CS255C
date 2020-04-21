@@ -21,6 +21,8 @@ class Rational_Overload {
     Rational_Overload(); // constructor
     Rational_Overload(int, int); // constructor
     void setValue(int, int); // set numerator and denominator value
+    int getNum(); // get numerator
+    int getDen(); // get denominator
 
     void negate(); // negate the value
     void reciprocal(); // switch numerator and denominator

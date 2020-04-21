@@ -38,6 +38,10 @@ void Rational_Overload::setValue(int n, int d) { // set numerator and denominato
   reduce();
 }
 
+int Rational_Overload::getNum() { return num; } // get numerator
+
+int Rational_Overload::getDen() { return den; } // get denominator
+
 void Rational_Overload::negate() { num = -num; } // negate only the numerator
 
 void Rational_Overload::reciprocal() { // switch numerator and denominator
