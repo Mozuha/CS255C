@@ -35,7 +35,8 @@ void printRelMessage(Rational_Overload a, Rational_Overload b, const string& mes
 
 int main() {
   int n = 0, d = 0; // numerator, denominator
-  Rational_Overload c; // instantiate object c of Rational_Overload class
+  Rational_Overload a, b, c; // instantiate object c of Rational_Overload class
+  bool failure; // checker for whether exception has been caught
   char ans; // user answer for yes/no question
 
   do {
@@ -43,30 +44,32 @@ int main() {
     cout << "Enter numerator: ";
     cin >> n;
     do {
+      failure = false;
+      cout << "Enter denominator: ";
+      cin >> d;
       try {
-        cout << "Enter denominator: ";
-        cin >> d;
-        if (d == 0)
-          throw ZeroDenomException(); // throw exception if inputted denominator is zero
+        a.setValue(n, d); // call reduce function in Rational_overload class and check the value of d
       } catch (ZeroDenomException &zeroDenomException) {
         cout << "Cannot set denominator to be 0. Please try again" << endl; // print error message if caught exception
+        failure = true;
       }
-    } while (d == 0); // loop until user enter non-zero denominator
+    } while (failure); // loop until user enter non-zero denominator
     Rational_Overload a(n, d); // instantiate object a of Rational_Overload class
 
     cout << "Enter information for Rational b" << endl;
     cout << "Enter numerator: ";
     cin >> n;
     do {
+      failure = false;
+      cout << "Enter denominator: ";
+      cin >> d;
       try {
-        cout << "Enter denominator: ";
-        cin >> d;
-        if (d == 0)
-          throw ZeroDenomException(); // throw exception if inputted denominator is zero
+        b.setValue(n, d); // call reduce function in Rational_overload class and check the value of d
       } catch (ZeroDenomException &zeroDenomException) {
         cout << "Cannot set denominator to be 0. Please try again" << endl; // print error message if caught exception
+        failure = true;
       }
-    } while (d == 0); // loop until user enter non-zero denominator
+    } while (failure); // loop until user enter non-zero denominator
     Rational_Overload b(n, d); // instantiate object b of Rational_Overload class
 
     cout << "a is ";
@@ -91,8 +94,6 @@ int main() {
     // division
     try {
       cout << "a/b is:" << endl;
-      if (a.getDen() == 0 || b.getNum() == 0)
-        throw ZeroDenomException(); // throw exception if denominator after operation to be zero
       c = a / b;
       printEquation(c, '/');
     } catch (ZeroDenomException &zeroDenomException) {
@@ -101,8 +102,6 @@ int main() {
 
     try {
       cout << "(a+b)/(a-b) is:" << endl;
-      if ((a+b).getDen() == 0 || (a-b).getNum() == 0)
-        throw ZeroDenomException(); // throw exception if denominator after operation to be zero
       c = (a - b) / (a + b);
       c.print();
       cout << endl;
@@ -123,8 +122,6 @@ int main() {
     // reciprocal
     try {
       cout << "!b (reciprocal of b) is:" << endl;
-      if (b.getNum() == 0)
-        throw ZeroDenomException(); // throw exception if denominator after operation to be zero
       c = !b;
       c.print();
       cout << endl;

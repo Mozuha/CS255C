@@ -6,6 +6,7 @@
  */
 
 #include "Rational_overload.h" // include definition of Rational_Overload class from rational_overload.h
+#include "ZeroDenomException.h" // include definition of ZeroDenomException class from ZeroDenomException.h
 #include <iostream>
 using namespace std;
 
@@ -16,11 +17,14 @@ int Rational_Overload::gcd(int n, int d) { // gcd
 
 void Rational_Overload::reduce() { // reduce
   int d = gcd(num, den);
-  num /= d;
-  den /= d;
   if (den < 0) { // if denominator is negative
-    num = -num; // set numerator to be negative
-    den = -den; // set denominator to be positive (3/-6 -> -1/2)
+    num = -(num / d); // set numerator to be negative
+    den = -(den / d); // set denominator to be positive (3/-6 -> -1/2)
+  } else if (den == 0) {
+    throw ZeroDenomException(); // throw exception if inputted denominator is zero
+  } else {
+    num /= d;
+    den /= d;
   }
 }
 
@@ -37,10 +41,6 @@ void Rational_Overload::setValue(int n, int d) { // set numerator and denominato
   den = d;
   reduce();
 }
-
-int Rational_Overload::getNum() { return num; } // get numerator
-
-int Rational_Overload::getDen() { return den; } // get denominator
 
 void Rational_Overload::negate() { num = -num; } // negate only the numerator
 
